@@ -8,19 +8,20 @@ Admin-facing API schemas for authenticated admin operations.
 
 ## Contents
 
-- **context** - `AdminRpcContext` (locale, admin metadata)
-- **blog** - Blog mutation schemas (`CreatePostInput`, `UpdatePostInput`)
-- **servers** - Server moderation schemas (`ApproveServerInput`, `BanServerInput`)
-- **users** - User management schemas (`BanUserInput`, `UpdateUserRoleInput`)
-- **emojis** - Emoji moderation schemas (`ApproveEmojiInput`, `DeleteEmojiInput`)
-- **bots** - Bot moderation schemas (`ApproveBotInput`, `BanBotInput`)
-- **reports** - Report handling schemas (`ResolveReportInput`, `DismissReportInput`)
+- **context** - `AdminRequestContext` (locale, admin metadata)
+- **offers** - Offer management schemas (`CreateOfferInput`, `UpdateOfferInput`, `DeleteOfferInput`)
+- **users** - User moderation schemas (`BanUserInput`, `UpdateUserRoleInput`, `AdjustBalanceInput`)
+- **publishers** - Publisher management schemas (`ApprovePublisherInput`, `UpdatePublisherInput`)
+- **completions** - Completion review schemas (`ApproveCompletionInput`, `RejectCompletionInput`)
+- **postbacks** - Postback monitoring schemas (`GetPostbackLogsInput`, `RetryPostbackInput`)
+- **stats** - Admin stats schemas (`GetAdminStatsInput`, `RevenueReportInput`)
 
 ## Usage
 
 ```ts
-import type { CreatePostInput, MutationResult } from "@moolah/contract-admin/blog";
-import type { AdminRpcContext } from "@moolah/contract-admin/context";
+import type { CreateOfferInput, UpdateOfferInput } from "@moolah/contract-admin/offers";
+import type { AdminRequestContext } from "@moolah/contract-admin/context";
+import type { BanUserInput } from "@moolah/contract-admin/users";
 ```
 
 ## Workspace Dependencies

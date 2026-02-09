@@ -8,20 +8,20 @@ Client-facing API schemas for type-safe RPC communication.
 
 ## Contents
 
-- **context** - `ClientRpcContext` (locale, request metadata)
-- **blog** - Blog query schemas (`GetPostsInput`, `BlogPostPreview`)
-- **servers** - Server query schemas (`GetServersInput`, `ServerPreview`)
-- **users** - User query schemas (`GetUserInput`, `UserProfile`)
-- **emojis** - Emoji query schemas (`GetEmojisInput`, `EmojiPreview`)
-- **bots** - Bot query schemas (`GetBotsInput`, `BotPreview`)
-- **auth** - Auth schemas (`GetCurrentUserInput`, `Session`)
-- **stats** - Stats schemas (`GetGlobalStatsInput`)
+- **context** - `ClientRequestContext` (locale, request metadata)
+- **offers** - Offer query schemas (`GetOffersInput`, `GetOfferInput`, `OfferPreview`)
+- **users** - User query schemas (`GetUserProfileInput`, `UserProfile`, `GetBalanceInput`)
+- **publishers** - Publisher query schemas (`GetPublisherInput`, `PublisherStats`)
+- **completions** - Completion query schemas (`GetCompletionsInput`, `CompletionHistory`)
+- **auth** - Auth schemas (`LoginInput`, `RegisterInput`, `Session`)
+- **stats** - Stats schemas (`GetStatsInput`, `PlatformStats`)
 
 ## Usage
 
 ```ts
-import type { GetPostsInput, GetPostsOutput } from "@moolah/contract/blog";
-import type { ClientRpcContext } from "@moolah/contract/context";
+import type { ClientRequestContext } from "@moolah/contract/context";
+import type { GetOffersInput, GetOffersOutput } from "@moolah/contract/offers";
+import type { UserProfile } from "@moolah/contract/users";
 ```
 
 ## Workspace Dependencies

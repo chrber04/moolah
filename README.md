@@ -22,14 +22,14 @@ Online platform for micro jobs and offerwalls. Workers earn money completing tas
 
 ### Packages
 
-- `@moolah/common` - Generic utilities (browser-safe)
-- `@moolah/common-svelte` - Generic Svelte UI components (Button, Badge, Card)
-- `@moolah/core` - Infrastructure: RPC types, i18n, configs (browser-safe)
-- `@moolah/core-svelte` - Domain Svelte components (OfferCard, UserProfile)
-- `@moolah/domain` - Business types and enums (browser-safe)
-- `@moolah/database` - Drizzle schemas for Neon Postgres (server-only)
-- `@moolah/contract` - Client API schemas (server-only)
-- `@moolah/contract-admin` - Admin API schemas (server-only)
+- `@moolah/common` - Generic utilities used across browser, SSR, and API workers
+- `@moolah/common-svelte` - Generic Svelte UI components (Button, Badge, Card) for browser and SSR
+- `@moolah/core` - Infrastructure layer: RPC types, i18n, configs used across browser, SSR, and API workers
+- `@moolah/core-svelte` - Domain Svelte components (OfferCard, UserProfile) for browser and SSR
+- `@moolah/domain` - Business types and enums shared across browser, SSR, and API workers
+- `@moolah/database` - Drizzle schemas for Neon Postgres used in API and background workers only
+- `@moolah/contract` - Client API schemas used in SvelteKit SSR (+page.server.ts) and API workers only
+- `@moolah/contract-admin` - Admin API schemas used in SvelteKit admin SSR and API workers only
 
 ### Tooling
 

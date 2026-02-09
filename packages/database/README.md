@@ -1,6 +1,6 @@
 # @moolah/database
 
-Drizzle ORM schema definitions for Cloudflare D1.
+Drizzle ORM schema definitions for Neon Postgres serverless.
 
 ## Runtime
 
@@ -8,23 +8,34 @@ Drizzle ORM schema definitions for Cloudflare D1.
 
 ## Contents
 
-- **schema** - Drizzle table definitions (servers, users, blogPosts, etc.)
+- **schema** - Drizzle table definitions (offers, users, publishers, completions, postbacks, etc.)
 - **types** - Auto-inferred TypeScript types (Select & Insert variants)
+- **client** - Database client factory (`createDb`)
 
 ## Usage
 
 ```ts
 // Import tables and types
-import { servers, users, blogPosts } from "@moolah/database";
-import type { Server, User, BlogPost } from "@moolah/database";
+import { offers, users, publishers, completions } from "@moolah/database";
+import type { Offer, User, Publisher, Completion } from "@moolah/database";
 
 // Import schema namespace for Drizzle client
 import * as schema from "@moolah/database/schema";
+import { createDb } from "@moolah/database/client";
 
-const db = drizzle(d1, { schema });
+const db = createDb(env.DATABASE_URL);
 ```
+
+## Database
+
+Moolah uses **Neon Postgres serverless** instead of Cloudflare D1 because the workload is write-heavy (offer completions, balance updates, postback processing). Neon provides:
+
+- Real ACID transactions
+- Row-level locking for balance operations
+- Serverless HTTP driver compatible with Cloudflare Workers
+- Connection pooling via Neon's built-in proxy
 
 ## Workspace Dependencies
 
 - `@moolah/common` - Generic isomorphic utilities
-- `@moolah/core` - Domain enums used in schema (`UserRole`, `ServerStatus`)
+- `@moolah/domain` - Domain enums used in schema (`OfferStatus`, `UserRole`, `CompletionStatus`)
