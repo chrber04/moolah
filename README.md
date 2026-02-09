@@ -1,135 +1,182 @@
-# Turborepo starter
+# Moolah
 
-This Turborepo starter is maintained by the Turborepo core team.
+Online platform for micro jobs and offerwalls. Workers earn money completing tasks, employers post micro jobs, and publishers embed the offerwall to monetize their audience.
 
-## Using this example
+## Tech Stack
 
-Run the following command:
-
-```sh
-npx create-turbo@latest
-```
+**Frontend:** SvelteKit 2 + Svelte 5, Tailwind CSS 4, Bits UI
+**API:** Hono on Cloudflare Workers
+**Database:** Neon Postgres serverless + Drizzle ORM
+**Hosting:** Cloudflare Pages + Workers
+**Monorepo:** Turborepo + PNPM
 
 ## What's inside?
 
-This Turborepo includes the following packages/apps:
+### Apps
 
-### Apps and Packages
+- `web-offerwall` - SvelteKit iframe embed (~8KB bundle) deployed to Cloudflare Pages
+- `web` - Main marketing site and user dashboard (SvelteKit) deployed to Cloudflare Pages
+- `web-admin` - Admin panel protected by Cloudflare Access (SvelteKit) deployed to Cloudflare Pages
+- `api` - Hono API handling business logic and postback ingestion (Cloudflare Workers)
+- `workers` - Background queue consumers for postback validation, fraud checks, balance settlement (Cloudflare Workers)
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+### Packages
+
+- `@moolah/common` - Generic utilities (browser-safe)
+- `@moolah/common-svelte` - Generic Svelte UI components (Button, Badge, Card)
+- `@moolah/core` - Infrastructure: RPC types, i18n, configs (browser-safe)
+- `@moolah/core-svelte` - Domain Svelte components (OfferCard, UserProfile)
+- `@moolah/domain` - Business types and enums (browser-safe)
+- `@moolah/database` - Drizzle schemas for Neon Postgres (server-only)
+- `@moolah/contract` - Client API schemas (server-only)
+- `@moolah/contract-admin` - Admin API schemas (server-only)
+
+### Tooling
+
+- `config-tailwind` - Shared Tailwind CSS 4 configuration
+- `config-typescript` - Shared TypeScript configs
+- `config-prettier` - Shared Prettier config
+- `config-eslint` - Shared ESLint config
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-### Utilities
+## Getting Started
 
-This Turborepo has some additional tools already setup for you:
+### Prerequisites
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+- [Node.js](https://nodejs.org/) 18+
+- [pnpm](https://pnpm.io/) 9+
+- [Wrangler](https://developers.cloudflare.com/workers/wrangler/) for Cloudflare deployments
+
+### Install Dependencies
+
+```bash
+pnpm install
+```
+
+### Development
+
+Run all apps in development mode:
+
+```bash
+pnpm dev
+```
+
+Run specific apps:
+
+```bash
+# API only
+pnpm --filter api dev
+
+# Main site with Wrangler (service bindings enabled)
+pnpm --filter web dev
+
+# Main site with Vite only (faster HMR, no RPC)
+pnpm --filter web dev:vite
+
+# Offerwall
+pnpm --filter web-offerwall dev
+
+# Admin panel
+pnpm --filter web-admin dev
+```
 
 ### Build
 
-To build all apps and packages, run the following command:
+Build all apps and packages:
 
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+```bash
+pnpm build
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+Build specific apps:
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+```bash
+pnpm --filter web build
+pnpm --filter api build
 ```
 
-### Develop
+### Database
 
-To develop all apps and packages, run the following command:
+Moolah uses Neon Postgres serverless via Drizzle ORM:
 
-```
-cd my-turborepo
+```bash
+# Generate migrations from schema changes
+pnpm --filter api db:generate
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
+# Apply migrations
+pnpm --filter api db:migrate
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+# Open Drizzle Studio
+pnpm --filter api db:studio
 ```
 
-### Remote Caching
+### Deployment
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+Deploy to Cloudflare:
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+```bash
+# Deploy all apps
+pnpm deploy
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+# Deploy specific apps
+pnpm --filter web deploy             # Cloudflare Pages
+pnpm --filter web-offerwall deploy   # Cloudflare Pages
+pnpm --filter web-admin deploy       # Cloudflare Pages
+pnpm --filter api deploy             # Cloudflare Workers
+pnpm --filter workers deploy         # Cloudflare Workers
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### Type Generation
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+Generate Cloudflare binding types:
+
+```bash
+pnpm --filter api cf-typegen
+pnpm --filter web cf-typegen
+pnpm --filter web-offerwall cf-typegen
+pnpm --filter web-admin cf-typegen
+```
+
+## Architecture
 
 ```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+┌──────────────────────────────────────────────────────────────┐
+│ CLOUDFLARE PAGES (Edge SSR)                                  │
+│  - apps/web, apps/web-offerwall, apps/web-admin              │
+└──────────────────┬───────────────────────────────────────────┘
+                   │ Service Bindings
+┌──────────────────▼───────────────────────────────────────────┐
+│ CLOUDFLARE WORKERS                                           │
+│  - apps/api (Hono API)                                       │
+│  - apps/workers (Queue consumers)                            │
+└──────────────────┬───────────────────────────────────────────┘
+                   │ HTTP (serverless driver)
+┌──────────────────▼───────────────────────────────────────────┐
+│ NEON POSTGRES (Serverless)                                   │
+│  - Real transactions, row-level locking                      │
+└──────────────────────────────────────────────────────────────┘
 ```
+
+**Why this stack:**
+
+- **Cloudflare for all compute + caching** - Edge SSR, Workers, Queues, KV
+- **Neon Postgres for transactional data** - D1 not suitable for write-heavy workloads (offers, completions, balances)
+- **SvelteKit for all frontends** - Tiny bundle (~8KB runtime vs ~90KB Next.js), fast SSR at edge
+
+## Documentation
+
+For detailed architecture and development guidelines, see [CLAUDE.md](./CLAUDE.md).
 
 ## Useful Links
 
-Learn more about the power of Turborepo:
+Learn more about the technologies used:
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+- [SvelteKit](https://kit.svelte.dev/) - Frontend framework
+- [Svelte 5](https://svelte.dev/) - UI framework with runes
+- [Cloudflare Pages](https://pages.cloudflare.com/) - Edge hosting
+- [Cloudflare Workers](https://workers.cloudflare.com/) - Serverless compute
+- [Hono](https://hono.dev/) - Fast web framework
+- [Neon](https://neon.tech/) - Serverless Postgres
+- [Drizzle](https://orm.drizzle.team/) - TypeScript ORM
+- [Turborepo](https://turborepo.com/) - Monorepo build system
