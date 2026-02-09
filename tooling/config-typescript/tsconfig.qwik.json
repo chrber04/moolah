@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Qwik",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    /* JSX Configuration for Qwik */
+    "jsx": "react-jsx",
+    "jsxImportSource": "@qwik.dev/core",
+
+    /* Module Configuration for Vite */
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+
+    /* Libraries for Browser + Cloudflare Workers */
+    "lib": ["ES2022", "DOM", "DOM.Iterable", "WebWorker"],
+
+    /* Qwik-specific */
+    "allowJs": true,
+    "noEmit": true
+  }
+}

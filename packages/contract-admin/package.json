@@ -1,0 +1,62 @@
+{
+  "name": "@moolah/contract-admin",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    "./context": {
+      "types": "./dist/context.d.ts",
+      "import": "./dist/context.js"
+    },
+    "./blog": {
+      "types": "./dist/blog/index.d.ts",
+      "import": "./dist/blog/index.js"
+    },
+    "./auth": {
+      "types": "./dist/auth/index.d.ts",
+      "import": "./dist/auth/index.js"
+    },
+    "./servers": {
+      "types": "./dist/servers/index.d.ts",
+      "import": "./dist/servers/index.js"
+    },
+    "./user": {
+      "types": "./dist/user/index.d.ts",
+      "import": "./dist/user/index.js"
+    },
+    "./current-user": {
+      "types": "./dist/current-user/index.d.ts",
+      "import": "./dist/current-user/index.js"
+    }
+  },
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "clean": "rimraf .turbo dist node_modules",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "peerDependencies": {
+    "valibot": "1.2.0"
+  },
+  "dependencies": {
+    "@moolah/common": "workspace:^",
+    "@moolah/contract": "workspace:^",
+    "@moolah/core": "workspace:^",
+    "@moolah/domain": "workspace:^"
+  },
+  "devDependencies": {
+    "@moolah/config-eslint": "workspace:^",
+    "@moolah/config-prettier": "workspace:^",
+    "@moolah/config-typescript": "workspace:^",
+    "@types/node": "24.3.0",
+    "typescript": "*",
+    "valibot": "1.2.0"
+  }
+}

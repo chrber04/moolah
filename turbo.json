@@ -1,0 +1,78 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "globalEnv": ["BASE_URL"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        ".nuxt/**",
+        ".output/**",
+        "dist/**",
+        ".svelte-kit/cloudflare/**"
+      ]
+    },
+    "dev": {
+      "dependsOn": ["cf:typegen"],
+      "cache": false,
+      "persistent": true
+    },
+    "deploy": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
+    "dev:vite": {
+      "cache": false,
+      "persistent": true
+    },
+    "dev:wrangler": {
+      "cache": false,
+      "persistent": true
+    },
+    "clean": {
+      "cache": false
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
+    "format": {
+      "dependsOn": ["^format"]
+    },
+    "format:fix": {
+      "dependsOn": ["^format:fix"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "lint:fix": {
+      "dependsOn": ["^lint:fix"]
+    },
+    "cf:typegen": {
+      "dependsOn": ["^cf:typegen"],
+      "inputs": [
+        "wrangler.jsonc",
+        "../web/wrangler.jsonc",
+        "../web/src/**/*.ts",
+        "../api/wrangler.jsonc",
+        "../api/src/**/*.ts"
+      ],
+      "outputs": ["worker-configuration.d.ts"],
+      "cache": true
+    },
+    "db:generate": { "cache": false },
+    "db:studio": { "cache": false, "persistent": true },
+    "db:list": { "cache": false },
+    "db:migrate:local": { "cache": false },
+    "db:migrate:staging": { "cache": false },
+    "db:migrate:prod": { "cache": false },
+    "db:seed:local": { "cache": false },
+    "db:list:local": { "cache": false },
+    "db:info:staging": { "cache": false },
+    "db:info:prod": { "cache": false },
+    "db:validate:local": { "cache": false },
+    "db:validate:staging": { "cache": false },
+    "db:validate:prod": { "cache": false }
+  }
+}

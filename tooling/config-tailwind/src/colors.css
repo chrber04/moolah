@@ -1,0 +1,193 @@
+@theme {
+  /* ============================================================================
+     BASE COLOR PRIMITIVES
+     OP.GG inspired palette - Neutral dark gray theme
+     ============================================================================ */
+
+  /* Background primitives - Neutral dark gray theme */
+  --color-bg-base: #181B1E;
+  --color-bg-elevated: #1C2023;
+  --color-bg-elevated-hover: #262B30;
+  --color-bg-elevated-active: #323940;
+
+  /* Foreground primitives */
+  --color-fg-emphasis: #ffffff;
+  --color-fg-default: #8E99A7;
+  --color-fg-subtle: #737F8B;
+  --color-fg-muted: #737F8B;
+  --color-fg-disabled: #4A5158;
+
+  /* Brand colors - Primary (Blue) */
+  --color-brand-primary: #5482FF;
+  --color-brand-primary-hover: #6B94FF;
+  --color-brand-primary-active: #4570E6;
+  --color-brand-primary-emphasis: #7FA3FF;
+  --color-brand-primary-subtle: #4570E6;
+
+  /* Brand colors - Accent (Gold/Yellow) */
+  --color-brand-accent: #fbbf24;
+  --color-brand-accent-hover: #fcd34d;
+  --color-brand-accent-active: #f59e0b;
+
+  /* Brand colors - Success (Green) */
+  --color-brand-success: #22c55e;
+  --color-brand-success-hover: #4ade80;
+  --color-brand-success-active: #16a34a;
+
+  /* Border primitives */
+  --color-border-default: #323940;
+  --color-border-emphasis: #3D454D;
+  --color-border-subtle: #262B30;
+
+  /* Layout specific colors */
+  --color-hero: #181B1E;
+  --color-hero-border: #323940;
+  --color-types: #1C2023;
+  --color-footer-search: #262B30;
+  --color-header-icon: #262B30;
+  --color-header-icon-hover: #323940;
+
+  /* ============================================================================
+     SEMANTIC COLOR TOKENS
+     These provide meaning and context to UI elements
+     ============================================================================ */
+
+  /* Page background */
+  --color-background: var(--color-bg-base);
+
+  /* Text colors */
+  --color-foreground-emphasis: var(--color-fg-emphasis);
+  --color-foreground-strong: var(--color-fg-emphasis);
+  --color-foreground: var(--color-fg-default);
+  --color-foreground-muted: var(--color-fg-default);
+  --color-foreground-subtle: var(--color-fg-subtle);
+  --color-foreground-disabled: var(--color-fg-disabled);
+
+  /* Primary actions (buttons, links) */
+  --color-primary: var(--color-brand-primary);
+  --color-primary-hover: var(--color-brand-primary-hover);
+  --color-primary-active: var(--color-brand-primary-active);
+  --color-primary-foreground: var(--color-fg-emphasis);
+
+  /* Accent (highlights, badges) */
+  --color-accent: var(--color-brand-accent);
+  --color-accent-hover: var(--color-brand-accent-hover);
+  --color-accent-foreground: var(--color-bg-base);
+
+  /* Success states (online, verified) */
+  --color-success: var(--color-brand-success);
+  --color-success-foreground: var(--color-bg-base);
+
+  /* Borders */
+  --color-border: var(--color-border-default);
+  --color-ring: var(--color-brand-primary);
+
+  /* ============================================================================
+     COMPONENT-SPECIFIC TOKENS
+     These are used by specific components for consistency
+     ============================================================================ */
+
+  /* Card component */
+  --color-card-bg: var(--color-bg-elevated);
+  --color-card-bg-hover: var(--color-bg-elevated-hover);
+  --color-card-border: var(--color-border-default);
+  --color-card-border-hover: var(--color-brand-primary);
+
+  /* Input component */
+  --color-input-bg: var(--color-bg-elevated);
+  --color-input-bg-hover: var(--color-bg-elevated-hover);
+  --color-input-border: var(--color-border-subtle);
+  --color-input-border-focus: var(--color-brand-primary);
+  --color-input-fg: var(--color-fg-emphasis);
+  --color-input-placeholder: var(--color-fg-subtle);
+
+  /* Button component */
+  --color-button-primary-bg: var(--color-brand-primary);
+  --color-button-primary-bg-hover: var(--color-brand-primary-hover);
+  --color-button-primary-fg: var(--color-fg-emphasis);
+  --color-button-secondary-bg: var(--color-bg-elevated-hover);
+  --color-button-secondary-bg-hover: var(--color-bg-elevated-active);
+  --color-button-secondary-fg: var(--color-fg-emphasis);
+
+  /* Tag/Badge component */
+  --color-tag-bg: var(--color-bg-elevated-hover);
+  --color-tag-bg-hover: var(--color-bg-elevated-active);
+  --color-tag-fg: var(--color-fg-default);
+  --color-tag-fg-hover: var(--color-fg-emphasis);
+
+  /* Rating badge */
+  --color-rating-bg: var(--color-brand-accent);
+  --color-rating-fg: var(--color-bg-base);
+
+  /* Overlay/Modal */
+  --color-overlay: rgba(0, 0, 0, 0.6);
+
+  /* ============================================================================
+     EXTENDED PALETTE (for Tailwind scale compatibility)
+     ============================================================================ */
+
+  /* Surface scale (Neutral Gray) */
+  --color-surface: var(--color-bg-elevated);
+  --color-surface-50: #E8EAED;
+  --color-surface-100: #8E99A7;
+  --color-surface-200: #737F8B;
+  --color-surface-300: #4A5158;
+  --color-surface-400: #323940;
+  --color-surface-500: #262B30;
+  --color-surface-600: #1C2023;
+  --color-surface-700: #181B1E;
+  --color-surface-800: #131517;
+  --color-surface-900: #0E0F11;
+  --color-surface-950: #090A0B;
+
+  /* Primary scale (Blue) */
+  --color-primary-50: #EEF3FF;
+  --color-primary-100: #DCEAFF;
+  --color-primary-200: #B8D4FF;
+  --color-primary-300: #8BB8FF;
+  --color-primary-400: #7FA3FF;
+  --color-primary-500: var(--color-brand-primary);
+  --color-primary-600: #4570E6;
+  --color-primary-700: #3A5FCC;
+  --color-primary-800: #2F4DA6;
+  --color-primary-900: #253D80;
+  --color-primary-950: #1A2B59;
+
+  /* Secondary scale */
+  --color-secondary: #262B30;
+  --color-secondary-foreground: var(--color-fg-emphasis);
+  --color-secondary-500: #262B30;
+
+  /* Accent scale (Gold/Yellow) */
+  --color-accent-50: #FFFBEB;
+  --color-accent-100: #FEF3C7;
+  --color-accent-200: #FDE68A;
+  --color-accent-300: #FCD34D;
+  --color-accent-400: #FBBF24;
+  --color-accent-500: var(--color-brand-accent);
+  --color-accent-600: #D97706;
+  --color-accent-700: #B45309;
+  --color-accent-800: #92400E;
+  --color-accent-900: #78350F;
+  --color-accent-950: #451A03;
+
+  /* Tertiary/Success scale (Discord Green) */
+  --color-tertiary: var(--color-brand-success);
+  --color-tertiary-foreground: var(--color-fg-emphasis);
+  --color-tertiary-50: #ecfdf3;
+  --color-tertiary-100: #d1fae3;
+  --color-tertiary-200: #a7f3cc;
+  --color-tertiary-300: #6ee7a8;
+  --color-tertiary-400: #2dc770;
+  --color-tertiary-500: var(--color-brand-success);
+  --color-tertiary-600: #1a7d44;
+  --color-tertiary-700: #166639;
+  --color-tertiary-800: #145230;
+  --color-tertiary-900: #124429;
+  --color-tertiary-950: #0a2517;
+
+  /* Legacy aliases (for backward compatibility) */
+  --color-card: var(--color-card-bg);
+  --color-card-border: var(--color-border-default);
+  --color-input: var(--color-input-bg);
+}

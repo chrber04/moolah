@@ -1,0 +1,6 @@
+@theme {
+  --grid-template-columns-task-sm: repeat(auto-fit, minmax(100px, 1fr));
+  --grid-template-columns-task-md: repeat(auto-fit, minmax(110px, 1fr));
+  --grid-template-columns-task-lg: repeat(auto-fit, minmax(120px, 1fr));
+  --grid-template-columns-task-xl: repeat(auto-fit, minmax(130px, 1fr));
+}

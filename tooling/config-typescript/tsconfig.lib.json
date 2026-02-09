@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Library",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "declaration": true, // Generates .d.ts files for library consumers.
+    "composite": true, // Enables project references and incremental compilation.
+    "sourceMap": true, // Generates source maps for emitted JavaScript files.
+    "declarationMap": true // Generates source maps for .d.ts files.
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

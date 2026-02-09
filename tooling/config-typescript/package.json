@@ -1,0 +1,14 @@
+{
+  "name": "@moolah/config-typescript",
+  "private": true,
+  "files": [
+    "tsconfig.base.json",
+    "tsconfig.lib.json",
+    "tsconfig.next.json",
+    "tsconfig.node.json",
+    "tsconfig.qwik.json",
+    "tsconfig.react.json",
+    "tsconfig.svelte.json",
+    "tsconfig.vue.json"
+  ]
+}

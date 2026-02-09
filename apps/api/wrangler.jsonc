@@ -1,0 +1,72 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "api",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-11-24",
+	"compatibility_flags": ["nodejs_compat"],
+	// "observability": {
+	//   "enabled": true,
+	//   "head_sampling_rate": 1
+	// }
+
+	"dev": {
+		"ip": "localhost",
+		"port": 4000
+	},
+
+	// "vars": {
+	//   "MY_VAR": "my-variable"
+	// },
+	// "kv_namespaces": [
+	//   {
+	//     "binding": "MY_KV_NAMESPACE",
+	//     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+	//   }
+	// ],
+	// "r2_buckets": [
+	//   {
+	//     "binding": "MY_BUCKET",
+	//     "bucket_name": "my-bucket"
+	//   }
+	// ],
+
+	// Default bindings (local development)
+
+	// A list of D1 database bindings this Worker can access.
+	"d1_databases": [
+		{
+			"binding": "DB", // The name you’ll use inside your Worker code to access the database (via env.DB).
+			"database_name": "moolah-db-dev", // The human-readable name of the D1 database as shown in the Cloudflare dashboard.
+			"database_id": "your-uuid-here", // The unique identifier Cloudflare uses to connect this Worker to that specific D1 database.
+			"migrations_dir": "./drizzle/migrations" // Path to the directory containing your migration files, relative to this wrangler.jsonc file.
+		}
+	],
+
+	"env": {
+		// Staging environment
+		"staging": {
+			"name": "api-staging",
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "moolah-db-staging",
+					"database_id": "staging-id-here",
+					"migrations_dir": "./drizzle/migrations"
+				}
+			]
+		},
+
+		// Production environment
+		"production": {
+			"name": "api",
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "moolah-db",
+					"database_id": "production-id-here",
+					"migrations_dir": "./drizzle/migrations"
+				}
+			]
+		}
+	}
+}

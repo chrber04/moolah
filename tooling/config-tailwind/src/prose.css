@@ -1,0 +1,142 @@
+/* Blog prose styling for MDX content */
+
+.prose {
+  @apply text-foreground text-base leading-normal;
+
+  /* Headings */
+  & h1,
+  & h2,
+  & h3,
+  & h4,
+  & h5,
+  & h6 {
+    @apply text-foreground-emphasis font-semibold leading-tight;
+    @apply scroll-mt-24; /* Offset for fixed header */
+  }
+
+  & h1 {
+    @apply mt-0 mb-3 text-2xl;
+  }
+
+  & h2 {
+    @apply mt-8 mb-2;
+    font-size: 1.25rem; /* 20px */
+  }
+
+  /* First h2 - no top margin since it's right after header */
+  & h2:first-child {
+    @apply mt-0;
+  }
+
+  & h3 {
+    @apply mt-6 mb-2;
+    font-size: 1.125rem; /* 18px */
+  }
+
+  & h4 {
+    @apply mt-4 mb-1.5 text-base font-semibold;
+  }
+
+  /* Paragraphs - condensed spacing */
+  & p {
+    @apply my-2.5;
+  }
+
+  /* Links - prominent but clean */
+  & a {
+    @apply text-primary-400 no-underline;
+    @apply hover:text-primary-300 hover:underline transition-colors;
+  }
+
+  /* Bold & Italic */
+  & strong {
+    @apply text-foreground-emphasis font-semibold;
+  }
+
+  & em {
+    @apply italic;
+  }
+
+  /* Inline Code */
+  & code:not(pre code) {
+    @apply bg-surface-400 text-foreground-emphasis;
+    @apply rounded px-1.5 py-0.5 text-sm font-mono;
+  }
+
+  /* Code Blocks */
+  & pre {
+    @apply bg-surface-600 border-surface-400 border;
+    @apply my-4 overflow-x-auto rounded-lg p-4;
+  }
+
+  & pre code {
+    @apply bg-transparent p-0 text-sm;
+  }
+
+  /* Blockquotes */
+  & blockquote {
+    @apply border-primary-500 text-foreground-muted border-l-2 pl-3 italic;
+    @apply my-4;
+  }
+
+  & blockquote p {
+    @apply my-1.5;
+  }
+
+  /* Lists - tighter spacing */
+  & ul,
+  & ol {
+    @apply my-2.5 pl-5;
+  }
+
+  & ul {
+    @apply list-disc;
+  }
+
+  & ol {
+    @apply list-decimal;
+  }
+
+  & li {
+    @apply my-1;
+  }
+
+  & li > ul,
+  & li > ol {
+    @apply my-0.5;
+  }
+
+  /* Images */
+  & img {
+    @apply my-4 rounded-lg;
+  }
+
+  /* Horizontal Rule */
+  & hr {
+    @apply border-surface-400 my-6;
+  }
+
+  /* Tables */
+  & table {
+    @apply my-4 w-full text-sm;
+  }
+
+  & th {
+    @apply text-foreground-emphasis border-surface-400 border-b px-2 py-1.5 text-left font-semibold;
+  }
+
+  & td {
+    @apply border-surface-400 border-b px-2 py-1.5;
+  }
+
+  & tr:last-child td {
+    @apply border-b-0;
+  }
+
+  /* First paragraph after heading - no top margin */
+  & h2 + p,
+  & h3 + p,
+  & h4 + p {
+    @apply mt-0;
+  }
+}

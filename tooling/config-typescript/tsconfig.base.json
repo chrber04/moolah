@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Default",
+  "compilerOptions": {
+    /* Language and Environment */
+    "lib": ["ES2023"],
+    "target": "ES2022",
+
+    /* Modules and Code Generation */
+    /**
+     * Module Strategy for Monorepo Shared Packages
+     *
+     * We use "NodeNext" for module generation because:
+     * 1. Node.js (NestJS backend) REQUIRES .js extensions in ESM imports
+     * 2. Frontend bundlers (Vite/Webpack) gracefully handle .js extensions
+     * 3. This ensures our shared packages work in BOTH environments
+     *
+     * Example compiled output:
+     *   export * from "./schemas.js"  // ← Node needs this .js
+     *
+     * - Node.js: ✅ "Found ./schemas.js!"
+     * - Vite:    ✅ "I'll resolve ./schemas.js to the actual file!"
+     *
+     * If we used "ESNext" or "Bundler", the output would be:
+     *   export * from "./schemas"     // ← No .js extension
+     *
+     * - Node.js: ❌ "Error: Cannot find module './schemas'"
+     * - Vite:    ✅ Works, but Node.js is broken!
+     */
+    "module": "esnext",
+    /**
+     * Module Resolution Strategy
+     *
+     * "NodeNext" resolution matches Node.js ESM resolution algorithm:
+     * - Requires explicit file extensions (.js) in relative imports
+     * - Respects package.json "exports" field
+     * - Supports both ESM and CommonJS interop
+     *
+     * This ensures TypeScript catches missing .js extensions at compile-time
+     * rather than getting runtime errors in Node.js
+     *
+     * For frontend-only apps, you could override with "Bundler" to skip
+     * the .js requirement, but keeping "NodeNext" everywhere ensures
+     * consistency across the monorepo.
+     */
+    "moduleResolution": "bundler",
+    // "allowImportingTsExtensions": true, // Allows importing .ts files directly without extensions
+    "moduleDetection": "force", // This options forces TypeScript to consider all files as modules. This helps avoid 'cannot redeclare block-scoped variable' errors.
+    "isolatedModules": true, // This option prevents a few TS features which are unsafe when treating modules as isolated files.
+    // "isolatedDeclarations": true, // Requires that each file can be safely type checked without relying on other files. This helps catch type-related issues and improves type checking performance.
+    "esModuleInterop": true, // Helps with CommonJS and ESM interoperability.
+    "verbatimModuleSyntax": true, // This option forces you to use import type and export type, which is more explicit and helps with tree-shaking.
+
+    /* Type Checking and Compilation */
+    "strict": true, // Enables all strict type-checking options. A must-have.
+    "strictNullChecks": true, // Prevents you from using undefined or null where it's not allowed.
+    "skipLibCheck": true, // Skips checking the types of .d.ts files. Important for performance.
+    "allowJs": true, // Allows you to import js files.
+    "resolveJsonModule": true, // Allows you to import json files
+    "incremental": true, // Enables incremental compilation. This is a must-have for large projects.
+
+    /* Best Practices */
+    "noUncheckedIndexedAccess": true, // Prevents you from accessing an array or object without first checking if it's defined.
+    "noImplicitOverride": true, // Makes the override keyword actually useful in classes.
+    "noFallthroughCasesInSwitch": true // Enables error reporting for fallthrough cases in switch statements.
+
+    /* Some Stricter Flags */
+    // "noUnusedLocals": true, // Prevents you from declaring variables that you never use.
+    // "noUnusedParameters": true, // Prevents you from declaring functions with parameters that you never use.
+    // "noImplicitReturns": true, // Prevents you from having a function without a return statement.
+    // "noPropertyAccessFromIndexSignature": true, // Prevents you from accessing properties from an index signature (e.g. obj['prop']).
+    // "allowUnusedLabels": false, // Prevents you from declaring labels that you never use.
+    // "allowUnreachableCode": false, // Prevents you from writing code that can never be reached.
+    // "exactOptionalPropertyTypes": true // Prevents you from using undefined as a type for optional properties.
+  },
+  "exclude": ["node_modules", "build", "dist"]
+}

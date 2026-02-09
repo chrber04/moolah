@@ -1,0 +1,20 @@
+/**
+ * Time intervals in milliseconds for timing operations.
+ *
+ * @example
+ * MillisecondDuration.FIVE_MINUTES // 300000
+ */
+export enum MsDuration {
+	TEN_SECONDS = 10000,
+	THIRTY_SECONDS = 30000,
+	ONE_MINUTE = 60000,
+	FIVE_MINUTES = 300000,
+	TEN_MINUTES = 600000,
+	THIRTY_MINUTES = 1800000,
+	ONE_HOUR = 3600000,
+	SIX_HOURS = 21600000,
+	TWELVE_HOURS = 43200000,
+	ONE_DAY = 86400000,
+	TWO_DAYS = 172800000,
+	SEVEN_DAYS = 604800000
+}
