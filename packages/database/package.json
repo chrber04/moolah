@@ -1,43 +1,43 @@
 {
-  "name": "@moolah/database",
-  "version": "0.0.0",
-  "private": true,
-  "type": "module",
-  "sideEffects": false,
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
-    },
-    "./schema": {
-      "types": "./dist/schema/index.d.ts",
-      "import": "./dist/schema/index.js",
-      "require": "./dist/schema/index.js"
-    }
-  },
-  "files": [
-    "dist/**"
-  ],
-  "scripts": {
-    "clean": "rimraf .turbo dist node_modules",
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "typecheck": "tsc --noEmit",
-    "format": "prettier --check .",
-    "format:fix": "prettier --write .",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
-  },
-  "dependencies": {
-    "@moolah/domain": "workspace:^",
-    "drizzle-orm": "^0.44.7"
-  },
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20251121.0",
-    "@moolah/config-eslint": "workspace:^",
-    "@moolah/config-prettier": "workspace:^",
-    "@moolah/config-typescript": "workspace:^",
-    "typescript": "*"
-  }
+	"name": "@moolah/database",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"sideEffects": false,
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.js"
+		},
+		"./schema": {
+			"types": "./dist/schema/index.d.ts",
+			"import": "./dist/schema/index.js",
+			"require": "./dist/schema/index.js"
+		}
+	},
+	"files": [
+		"dist/**"
+	],
+	"scripts": {
+		"clean": "rimraf .turbo dist node_modules",
+		"build": "tsc",
+		"dev": "tsc --watch",
+		"typecheck": "tsc --noEmit",
+		"format": "prettier --check .",
+		"format:fix": "prettier --write .",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix"
+	},
+	"dependencies": {
+		"@moolah/domain": "workspace:^",
+		"drizzle-orm": "^0.44.7"
+	},
+	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20251121.0",
+		"@moolah/config-eslint": "workspace:^",
+		"@moolah/config-prettier": "workspace:^",
+		"@moolah/config-typescript": "workspace:^",
+		"typescript": "*"
+	}
 }

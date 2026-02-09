@@ -20,7 +20,7 @@
     "--": "----------- Local DB Commands -----------",
     "db:migrate:local": "wrangler d1 migrations apply DB --local",
     "db:list:local": "wrangler d1 migrations list DB --local",
-    "db:seed:local": "tsx src/seed/index.ts",
+    "db:seed:local": "tsx src/database/seed/index.ts",
     "db:validate:local": "wrangler d1 execute DB --local --command=\"SELECT name FROM sqlite_master WHERE type='table';\"",
     "---": "---------- Staging DB Commands ----------",
     "db:migrate:staging": "wrangler d1 migrations apply DB --env staging --remote",
