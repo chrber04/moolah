@@ -1,6 +1,6 @@
 # Moolah
 
-Online platform for micro jobs and offerwalls. Workers earn money completing tasks, employers post micro jobs, and publishers embed the offerwall to monetize their audience.
+Offerwall platform for publishers and advertisers. Publishers embed the offerwall as an iframe to monetize their audience with two earning types: offers (games, app installs, signups) and surveys (opinion surveys from research providers). End users complete these for rewards, and publishers receive callbacks on each completion. Similar to BitLabs, AdGate Media, and Torox.
 
 ## Tech Stack
 
@@ -17,15 +17,15 @@ Online platform for micro jobs and offerwalls. Workers earn money completing tas
 - `web-offerwall` - SvelteKit iframe embed (~8KB bundle) deployed to Cloudflare Pages
 - `web` - Main marketing site and user dashboard (SvelteKit) deployed to Cloudflare Pages
 - `web-admin` - Admin panel protected by Cloudflare Access (SvelteKit) deployed to Cloudflare Pages
-- `api` - Hono API handling business logic and postback ingestion (Cloudflare Workers)
-- `workers` - Background queue consumers for postback validation, fraud checks, balance settlement (Cloudflare Workers)
+- `api` - Hono API handling business logic and callback ingestion (Cloudflare Workers)
+- `workers` - Background queue consumers for callback validation, fraud checks, balance settlement (Cloudflare Workers)
 
 ### Packages
 
 - `@moolah/common` - Generic utilities used across browser, SSR, and API workers
 - `@moolah/common-svelte` - Generic Svelte UI components (Button, Badge, Card) for browser and SSR
 - `@moolah/core` - Infrastructure layer: RPC types, i18n, configs used across browser, SSR, and API workers
-- `@moolah/core-svelte` - Domain Svelte components (OfferCard, UserProfile) for browser and SSR
+- `@moolah/core-svelte` - Domain Svelte components (OfferCard, SurveyCard) for browser and SSR
 - `@moolah/domain` - Business types and enums shared across browser, SSR, and API workers
 - `@moolah/database` - Drizzle schemas for Neon Postgres used in API and background workers only
 - `@moolah/contract` - Client API schemas used in SvelteKit SSR (+page.server.ts) and API workers only

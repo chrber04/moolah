@@ -13,10 +13,10 @@
 export const projectConfig = {
 	name: "Moolah",
 	slug: "moolah",
-	tagline: "Earn Money Completing Tasks",
+	tagline: "Monetize Your Audience with Rewarded Offers & Surveys",
 	url: "https://moolah.com",
 	description:
-		"Online platform connecting workers with micro jobs and tasks. Earn money completing surveys, data entry, app testing, and more. Employers post tasks and hire from our global workforce.",
+		"Offerwall platform for publishers and advertisers. Monetize your audience with offers, surveys, and games. Easy iframe integration with real-time callbacks.",
 	logo: "/images/logo.svg",
 	copyright: "Moolah",
 	foundedYear: 2024,

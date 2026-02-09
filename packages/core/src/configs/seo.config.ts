@@ -11,27 +11,27 @@
  * <meta property="og:image" content={seoConfig.openGraph.images} />
  */
 export const seoConfig = {
-	title: "Moolah - Earn Money Completing Tasks",
+	title: "Moolah - Monetize Your Audience with Rewarded Offers & Surveys",
 	template: "%s | Moolah",
 	description:
-		"Online platform for micro jobs and tasks. Earn money completing surveys, data entry, app testing, and small gigs. Join thousands of workers making money online in 2026.",
+		"Offerwall platform for publishers and advertisers. Monetize your audience with offers, surveys, and games. Easy iframe integration with real-time callbacks and detailed analytics.",
 	thumbnail: "/images/og-default.png",
 	keywords: [
-		"micro jobs",
-		"microtasks",
-		"earn money online",
-		"freelance gigs",
-		"small tasks",
-		"online jobs",
-		"work from home",
-		"gig economy",
-		"complete surveys",
-		"data entry jobs",
-		"app testing",
-		"make money online",
-		"side hustle",
-		"remote work",
-		"freelance platform"
+		"offerwall",
+		"offer wall",
+		"offerwall platform",
+		"survey monetization",
+		"publisher monetization",
+		"offerwall integration",
+		"iframe offerwall",
+		"reward platform",
+		"offer wall API",
+		"survey API",
+		"app monetization",
+		"user engagement",
+		"offerwall provider",
+		"callback integration",
+		"postback system"
 	],
 	authors: [{ name: "Moolah" }],
 	creator: "Moolah",
@@ -39,8 +39,8 @@ export const seoConfig = {
 		type: "website",
 		url: "https://moolah.com",
 		siteName: "Moolah",
-		title: "Moolah - Earn Money Completing Tasks",
-		description: "Join our platform and earn money completing micro jobs, surveys, and simple online tasks.",
+		title: "Moolah - Monetize Your Audience with Rewarded Offers & Surveys",
+		description: "Monetize your audience with offers, surveys, and games. Easy iframe integration with real-time callbacks.",
 		images: "/images/og-default.png",
 		locale: "en_US"
 	},
@@ -48,8 +48,8 @@ export const seoConfig = {
 		card: "summary_large_image",
 		site: "@moolah",
 		creator: "@moolah",
-		title: "Moolah - Earn Money Completing Tasks",
-		description: "Join our platform and earn money completing micro jobs, surveys, and simple online tasks.",
+		title: "Moolah - Monetize Your Audience with Rewarded Offers & Surveys",
+		description: "Monetize your audience with offers, surveys, and games. Easy iframe integration with real-time callbacks.",
 		images: "/images/og-default.png"
 	}
 } as const;

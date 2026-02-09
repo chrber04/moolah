@@ -1,6 +1,6 @@
 # Moolah
 
-Online platform for micro jobs and offerwalls. Workers earn money completing tasks posted by employers (data entry, surveys, app testing) or complete advertiser offers to earn rewards. Employers post micro jobs and hire from a global workforce. Publishers embed the offerwall as an iframe to monetize their audience.
+Offerwall platform for publishers and advertisers. Publishers embed the offerwall as an iframe to monetize their audience with two earning types: offers (games, app installs, signups) and surveys (opinion surveys from research providers). End users complete these for rewards, and publishers receive callbacks on each completion. Similar to BitLabs, AdGate Media, and Torox.
 
 ## Tech Stack
 
@@ -36,8 +36,8 @@ Online platform for micro jobs and offerwalls. Workers earn money completing tas
 ┌──────────────────────▼───────────────────────────────────────────┐
 │ CLOUDFLARE WORKERS                                               │
 │                                                                  │
-│  apps/api        - Hono API, postback ingestion, business logic  │
-│  apps/workers    - Queue consumers: postback validation,         │
+│  apps/api        - Hono API, callback ingestion, business logic  │
+│  apps/workers    - Queue consumers: callback validation,         │
 │                    fraud checks, balance settlement               │
 └──────────────────────┬───────────────────────────────────────────┘
                        │ HTTP (serverless driver)
@@ -125,7 +125,7 @@ Moolah uses a **layered package architecture** organized by two dimensions:
                               ↕ Cloudflare Queues
 ┌─────────────────────────────────────────────────────────────────┐
 │ BACKGROUND WORKERS (Cloudflare Workers)                         │
-│   - Queue consumers: postback validation, fraud, settlement     │
+│   - Queue consumers: callback validation, fraud, settlement     │
 │   - Can import: ALL packages except *-svelte                    │
 │   - Async with retries and fault tolerance                      │
 └─────────────────────────────────────────────────────────────────┘
@@ -139,7 +139,7 @@ Moolah uses a **layered package architecture** organized by two dimensions:
 | `common-svelte`  | Generic | Browser + SSR    | UI components (Button, Card)    |
 | `core`           | Infra   | Browser + Server | RPC types, i18n, configs        |
 | `domain`         | Domain  | Browser + Server | Business types, enums, schemas  |
-| `core-svelte`    | Domain  | Browser + SSR    | OfferCard, UserProfile          |
+| `core-svelte`    | Domain  | Browser + SSR    | OfferCard, SurveyCard           |
 | `database`       | Domain  | Server only      | Drizzle schemas (Neon Postgres) |
 | `contract`       | Domain  | Server only      | Client API schemas              |
 | `contract-admin` | Domain  | Server only      | Admin API schemas               |
@@ -150,7 +150,7 @@ Moolah uses a **layered package architecture** organized by two dimensions:
 
 - `common` packages could be copied to any project - no business logic
 - `core` is infrastructure - RPC machinery, i18n, configs, error handling
-- `domain` is business entities - Offer, User, Publisher types and enums
+- `domain` is business entities - Offer, Survey, Publisher, Completion types and enums
 
 **Browser-safe vs Server-only (`-server` suffix)**
 
@@ -202,8 +202,8 @@ common ────────────────────────�
 
 **@moolah/domain** (browser-safe)
 
-- Business types (`Offer`, `User`, `Publisher`, `Completion`)
-- Enums (`OfferStatus`, `UserRole`, `CompletionStatus`)
+- Business types (`Offer`, `Survey`, `Publisher`, `Offerwall`, `Completion`)
+- Enums (`OfferType`, `OfferStatus`, `SurveyStatus`, `CompletionStatus`, `ProviderType`)
 - Domain schemas and constants
 - Depends on: `common`, `core`
 
@@ -230,7 +230,7 @@ common ────────────────────────�
 
 **@moolah/core-svelte** (browser + SSR)
 
-- Domain components (OfferCard, UserProfile)
+- Domain components (OfferCard, SurveyCard, OfferwallLayout)
 - Depends on: `common-svelte`, `domain`
 
 ---
@@ -239,27 +239,29 @@ common ────────────────────────�
 
 ### apps/offerwall (Cloudflare Pages)
 
-Embeddable offerwall served via iframe. Optimized for minimal bundle size (~8KB Svelte runtime). Users browse and complete offers here.
+Embeddable offerwall served via iframe. Optimized for minimal bundle size (~8KB Svelte runtime). Displays two earning types: offers (games, app installs, signups) and surveys (opinion surveys from research providers). Users browse and complete these for rewards.
 
 ### apps/main (Cloudflare Pages)
 
-Main marketing site and user dashboard. Shared component library with other SvelteKit apps. SSR at edge.
+Main marketing site and publisher/advertiser dashboard. Publishers manage offerwalls, view analytics, and configure callbacks. SSR at edge.
 
 ### apps/admin (Cloudflare Pages + Cloudflare Access)
 
-Admin panel for managing offers, publishers, users, and reviewing completions. Protected behind Cloudflare Access for authentication.
+Admin panel for managing offers, surveys, providers, publishers, and reviewing completions. Protected behind Cloudflare Access for authentication.
 
 ### apps/api (Cloudflare Workers)
 
-Hono-based API handling all business logic. Handles postback ingestion at the edge. Publishes to Cloudflare Queues for async processing.
+Hono-based API handling all business logic. Handles callback ingestion from offer providers and survey routers at the edge. Publishes to Cloudflare Queues for async processing.
 
 ### apps/workers (Cloudflare Workers)
 
 Queue consumers for background processing:
 
-- **Postback validation** - Verify postback signatures and parameters
+- **Offer callback validation** - Verify offer provider callback signatures and parameters
+- **Survey callback validation** - Verify survey router callbacks, handle screenouts, reconciliation
 - **Fraud checks** - Detect duplicate completions, suspicious patterns
-- **Balance settlement** - Credit user balances with retries and fault tolerance
+- **Publisher callback delivery** - Notify publishers of completions with retries and deduplication
+- **Balance settlement** - Credit publisher balances with retries and fault tolerance
 
 All processing is async with automatic retries via Cloudflare Queues.
 
@@ -267,7 +269,7 @@ All processing is async with automatic retries via Cloudflare Queues.
 
 ## Database (Neon Postgres)
 
-Moolah uses **Neon Postgres serverless** instead of Cloudflare D1 because the workload is write-heavy (offer completions, balance updates, postback processing). Neon provides:
+Moolah uses **Neon Postgres serverless** instead of Cloudflare D1 because the workload is write-heavy (offer completions, survey completions, balance updates, callback processing). Neon provides:
 
 - Real ACID transactions
 - Row-level locking for balance operations
