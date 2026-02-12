@@ -8,7 +8,7 @@ Drizzle ORM schema definitions for Neon Postgres serverless.
 
 ## Contents
 
-- **schema** - Drizzle table definitions (offers, users, publishers, completions, postbacks, etc.)
+- **schema** - Drizzle table definitions (offers, surveys, publishers, completions, callbacks, etc.)
 - **types** - Auto-inferred TypeScript types (Select & Insert variants)
 - **client** - Database client factory (`createDb`)
 
@@ -16,19 +16,18 @@ Drizzle ORM schema definitions for Neon Postgres serverless.
 
 ```ts
 // Import tables and types
-import { offers, users, publishers, completions } from "@moolah/database";
-import type { Offer, User, Publisher, Completion } from "@moolah/database";
-
+import type { Completion, Offer, Publisher, User } from "@moolah/database";
+import { completions, offers, publishers, users } from "@moolah/database";
+import { createDb } from "@moolah/database/client";
 // Import schema namespace for Drizzle client
 import * as schema from "@moolah/database/schema";
-import { createDb } from "@moolah/database/client";
 
 const db = createDb(env.DATABASE_URL);
 ```
 
 ## Database
 
-Moolah uses **Neon Postgres serverless** instead of Cloudflare D1 because the workload is write-heavy (offer completions, balance updates, postback processing). Neon provides:
+Moolah uses **Neon Postgres serverless** instead of Cloudflare D1 because the workload is write-heavy (offer completions, balance updates, callback processing). Neon provides:
 
 - Real ACID transactions
 - Row-level locking for balance operations

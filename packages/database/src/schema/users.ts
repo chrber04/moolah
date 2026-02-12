@@ -1,7 +1,7 @@
 import { sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-import { UserRole } from "@moolah/domain/user";
+import type { UserRole } from "@moolah/domain/user";
 
 import { primaryId } from "../utils";
 
